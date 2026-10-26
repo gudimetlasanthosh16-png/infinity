@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Sensitive Secrets & API Keys
+openrouter_key.txt
+.env
+*.pem
+*.key
+
+# Browser Cache & User Profiles
+.jarvis_desktop_profile/
+.webview_data/
+EBWebView/
+
+# Local Runtime Databases & Logs
+data/logs/
+data/*.db
+data/*.sqlite3
+data/*.log
+*.log
+
+# Generated Temporary Media & User Captures
+screenshots/
+videos/temp/
+videos/*.mp4
+notes/*.pdf
+notes/*.pptx
+arun/WhatsApp*
+
+
+# Large Personal Reference Assets (>20MB)
+arun/20260901080602.pdf
+
+# Separate Repositories
+orca-marine/
+
+# OS Specific Files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# IDE & Editor Configs
+.vscode/
+.idea/
+*.swp
+*.swo

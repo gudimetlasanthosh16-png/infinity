@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J.A.R.V.I.S. // Mark VII Personal HUD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-cyan">
+  <!-- Dynamic GUI Video Background (TL80.mp4) -->
+  <video class="hud-bg-video" autoplay loop muted playsinline src="/assets/TL80.mp4"></video>
+  
+  <!-- Scanline, Vignette and Hex Grid Overlays -->
+  <div class="overlay-scanlines"></div>
+  <div class="overlay-vignette"></div>
+  <div class="overlay-grid"></div>
+
+  <!-- Single Unified HUD Screen -->
+  <div class="hud-fullscreen">
+    
+    <!-- Top HUD Header Strip -->
+    <header class="hud-topbar">
+      <div class="topbar-left">
+        <div class="stark-logo">
+          <span class="sub">STARK INDUSTRIES</span>
+          <span class="main">J.A.R.V.I.S. <small>MARK VII</small></span>
+        </div>
+        <div class="sys-badge online">
+          <span class="blink-dot"></span>
+          <span>SYSTEM ACTIVE</span>
+        </div>
+        <div class="sys-badge voice-badge" id="voiceBadge">
+          <span class="blink-dot mic-dot"></span>
+          <span id="voiceBadgeText">MIC LISTENING</span>
+        </div>
+      </div>
+
+      <div class="topbar-center">
+        <div class="hud-telemetry-pill">
+          <span class="tele-label">CPU</span>
+          <span id="topCpu" class="tele-val">--%</span>
+          <div class="tele-bar"><div id="topCpuBar" class="tele-fill" style="width: 25%;"></div></div>
+        </div>
+        <div class="hud-telemetry-pill">
+          <span class="tele-label">RAM</span>
+          <span id="topRam" class="tele-val">--%</span>
+          <div class="tele-bar"><div id="topRamBar" class="tele-fill" style="width: 48%;"></div></div>
+        </div>
+        <div class="hud-telemetry-pill">
+          <span class="tele-label">CORE</span>
+          <span class="tele-val highlight">100% NOMINAL</span>
+        </div>
+        <div class="hud-telemetry-pill">
+          <span class="tele-label">ASSETS</span>
+          <span class="tele-val highlight">10/10 SYNCED</span>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="time-box">
+          <div id="hud-clock" class="time-main">00:00:00</div>
+          <div id="hud-date" class="time-sub">INITIALIZING</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Unified Holographic Canvas (All 10 Assets in Single View) -->
+    <main class="hud-canvas">
+      
+      <!-- LEFT COLUMN: 3 Subsystem Assets -->
+      <section class="canvas-col left-panel">
+        
+        <!-- Asset 1: Neural Subsystem (Mr3W.mp4) -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="tag">01 // NEURAL</span>
+            <span class="title">NEURAL COGNITION HUD</span>
+          </div>
+          <div class="widget-media">
+            <video class="fit-video" autoplay loop muted playsinline src="/assets/Mr3W.mp4"></video>
+            <div class="media-overlay">
+              <span>SYNC: 99.8%</span>
+              <span>FREQ: 432 THz</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 2: Target Radar & Orbit (aHR0cDovL29yaWcw...) -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="tag">02 // RADAR</span>
+            <span class="title">ORBITAL TARGET MATRIX</span>
+          </div>
+          <div class="widget-media">
+            <video class="fit-video" autoplay loop muted playsinline src="/assets/aHR0cDovL29yaWcwMC5kZXZpYW50YXJ0Lm5ldC9mMmU3L2YvMjAxNi8xMzQvMS8wL2pfYV9yX3ZfaV9zX3VpX2J5X2Rya2RuYS1kYTJoMGJhLmdpZg.mp4"></video>
+            <div class="media-overlay">
+              <span>ORBIT: GEO-LOCK</span>
+              <span>RANGE: 420 KM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 3: Acoustic Spectrum (aHR0cDovL3dpdGh...) -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="tag">03 // AUDIO</span>
+            <span class="title">SPECTRUM WAVEFORM</span>
+          </div>
+          <div class="widget-media">
+            <video class="fit-video" autoplay loop muted playsinline src="/assets/aHR0cDovL3dpdGhzdGFydHVwcy5jb20vd3AtY29udGVudC91cGxvYWRzLzIwMTMvMTAvamFydmlzLmdpZg.mp4"></video>
+            <div class="media-overlay">
+              <span>SNR: +48 dB</span>
+              <span>BAND: 20-48k</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- CENTER COLUMN: Arc Reactor Prime + Sub-Core Feeds + Quick Command -->
+      <section class="canvas-col center-panel">
+        
+        <!-- Center Arc Reactor Prime (Asset: aHR0cHM6Ly90aHVtYnMuZ2Z5Y2F0LmNvbS9BY2NvbXBsaXNoZWRTaW1wbGVLYXJha3VsLXNtYWxsLmdpZg.mp4) -->
+        <div class="arc-prime-wrapper" id="arcPrimeWrapper">
+          <canvas id="arcAudioCanvas" class="arc-audio-canvas"></canvas>
+          <div class="hologram-rings">
+            <div class="ring outer-ring"></div>
+            <div class="ring middle-ring"></div>
+            <div class="ring inner-ring"></div>
+          </div>
+          <div class="arc-media-box">
+            <video class="arc-prime-video" autoplay loop muted playsinline src="/assets/aHR0cHM6Ly90aHVtYnMuZ2Z5Y2F0LmNvbS9BY2NvbXBsaXNoZWRTaW1wbGVLYXJha3VsLXNtYWxsLmdpZg.mp4"></video>
+            <div class="arc-title-overlay">
+              <span class="core-heading">ARC REACTOR MARK VII</span>
+              <span class="core-flux"><strong id="coreFluxText">3.82</strong> GW/s</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Holographic QR Code HUD Display (Feature 49) -->
+        <div id="dashboardQrWidget" class="dashboard-qr-panel qr-dashboard-hidden">
+          <div class="dash-qr-header">
+            <div class="dash-qr-badge">
+              <span class="pulse-icon">◈</span>
+              <span>HOLOGRAPHIC QR MATRIX // ACTIVE</span>
+            </div>
+            <div class="dash-qr-actions-top">
+              <button id="dashQrOpenFolder" class="dash-qr-mini-btn" title="Open Screenshots Folder">📂 SCREENSHOTS</button>
+              <button id="dashQrExpand" class="dash-qr-mini-btn" title="Expand Full Hologram">🔍 EXPAND</button>
+              <button id="dashQrClose" class="dash-qr-mini-btn close" title="Dismiss QR Matrix">✕</button>
+            </div>
+          </div>
+          <div class="dash-qr-body">
+            <div class="dash-qr-frame">
+              <div class="qr-corner top-left"></div>
+              <div class="qr-corner top-right"></div>
+              <div class="qr-corner bottom-left"></div>
+              <div class="qr-corner bottom-right"></div>
+              <div class="qr-scanline"></div>
+              <img id="dashQrImg" class="dash-qr-img" src="" alt="Dashboard QR Matrix" />
+              <div id="dashQrSpinner" class="dash-qr-spinner">SYNTHESIZING MATRIX...</div>
+            </div>
+            <div class="dash-qr-info">
+              <div class="dash-qr-target">
+                <span class="dash-qr-tag">DATA ENCODED:</span>
+                <span id="dashQrTargetText" class="dash-qr-val">https://www.google.com</span>
+              </div>
+              <div class="dash-qr-path-row">
+                <span class="dash-qr-tag">SAVED IMAGE:</span>
+                <span id="dashQrPathText" class="dash-qr-val-dim">screenshots/...</span>
+              </div>
+              <div class="dash-qr-ctrls">
+                <button id="dashQrCopyBtn" class="dash-qr-action-btn">📋 COPY LINK</button>
+                <button id="dashQrDownloadBtn" class="dash-qr-action-btn primary">💾 DOWNLOAD</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voice Live Transcript & Directive Feedback -->
+        <div class="voice-transcript-bar" id="voiceTranscriptBar">
+          <span class="trans-icon">🎙</span>
+          <span id="voiceTranscriptText">JARVIS ONLINE // Say "Take screenshot", "Set volume to 50%", "Brightness 80%", "Open Notepad"...</span>
+        </div>
+
+        <!-- Center Lower Row: 3 Modular Feeds (Assets 5, 6, 7) -->
+        <div class="center-sub-row">
+          <!-- Asset 5: Core Pulse Multiplex (9s7i.mp4) -->
+          <div class="hud-widget sub-widget">
+            <div class="widget-header">
+              <span class="tag">04 // CORE</span>
+              <span class="title">ARC PULSE MATRIX</span>
+            </div>
+            <div class="widget-media">
+              <video class="fit-video" autoplay loop muted playsinline src="/assets/9s7i.mp4"></video>
+            </div>
+          </div>
+
+          <!-- Asset 6: Iron Man Hand Protocol (aHR0cHM6Ly9saXZpbn...) -->
+          <div class="hud-widget sub-widget">
+            <div class="widget-header">
+              <span class="tag">05 // LINK</span>
+              <span class="title">STARK PROTOCOL</span>
+            </div>
+            <div class="widget-media">
+              <video class="fit-video" autoplay loop muted playsinline src="/assets/aHR0cHM6Ly9saXZpbnRoZXRoYWlsaWZlYmxvZy5maWxlcy53b3JkcHJlc3MuY29tLzIwMTQvMDgvamFydmlzLWlyb25tYW4taW50ZXJhY3Rpb24tZ2lmLmdpZg.mp4"></video>
+            </div>
+          </div>
+
+          <!-- Asset 7: Power Grid / Circuit Matrix (aHR0cHM6Ly9pLm1ha2...) -->
+          <div class="hud-widget sub-widget">
+            <div class="widget-header">
+              <span class="tag">06 // GRID</span>
+              <span class="title">POWER DISTRIBUTION</span>
+            </div>
+            <div class="widget-media">
+              <video class="fit-video" autoplay loop muted playsinline src="/assets/aHR0cHM6Ly9pLm1ha2VhZ2lmLmNvbS9tZWRpYS8xMi0yNS0yMDE1L1Q4YmFoZi5naWY.mp4"></video>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Command Bar -->
+        <div class="hud-command-strip">
+          <span class="prompt-tag">JARVIS &gt;</span>
+          <input type="text" id="commandInput" placeholder="Enter directive (e.g. 'search Google for Elon Musk', 'search YouTube for Iron Man', 'screenshot', 'volume 50')..." autocomplete="off" />
+          <button id="commandSubmit" class="cmd-btn">EXECUTE</button>
+        </div>
+
+      </section>
+
+      <!-- RIGHT COLUMN: 4 Tactical, Telemetry, and Data Assets -->
+      <section class="canvas-col right-panel">
+        
+        <!-- Asset 8: Tactical HUD (aHR0cHM6Ly9jYW1v...) -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="tag">07 // TACTICAL</span>
+            <span class="title">TACTICAL DEFENSE HUD</span>
+          </div>
+          <div class="widget-media">
+            <video class="fit-video" autoplay loop muted playsinline src="/assets/aHR0cHM6Ly9jYW1vLmdpdGh1YnVzZXJjb250ZW50LmNvbS83OTFlYjlkNTY3ZTJkZmUxMjk0OTM2NWFhMTgyZGUzNzlmMWRkMzczLzY4NzQ3NDcwM2EyZjJmNjkyZTY5NmQ2Nzc1NzIyZTYzNmY2ZDJmNGY2ZDczNDkzMDM3NzYyZTY3Njk2Ng.mp4"></video>
+            <div class="media-overlay">
+              <span>SHIELDS: 100%</span>
+              <span>STATUS: DEFENSE</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 9: Hydro-Quantum Matrix (TL80.mp4) -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="tag">08 // QUANTUM</span>
+            <span class="title">FLUX DYNAMICS MATRIX</span>
+          </div>
+          <div class="widget-media">
+            <video class="fit-video" autoplay loop muted playsinline src="/assets/TL80.mp4"></video>
+            <div class="media-overlay">
+              <span>DYNAMICS: NOMINAL</span>
+              <span>PRESSURE: OPTIMAL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 10: Realtime Data Stream (aHR0cHM6Ly9tZWRpYTE...) -->
+        <div class="hud-widget">
+          <div class="widget-header">
+            <span class="tag">09 // TELEMETRY</span>
+            <span class="title">QUANTUM DATA STREAM</span>
+          </div>
+          <div class="widget-media">
+            <video class="fit-video" autoplay loop muted playsinline src="/assets/aHR0cHM6Ly9tZWRpYTEudGVub3IuY29tL2ltYWdlcy8yYzdiOGQxZjMzYzk5YzFhMGMxNDJmYTUwMzNmZmJjOS90ZW5vci5naWY_aXRlbWlkXHUwMDNkMTQ0NDAzNjg.mp4"></video>
+            <div class="media-overlay">
+              <span>PKTS: 142k/s</span>
+              <span>PING: 0.8ms</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Bottom Status Ticker Bar -->
+    <footer class="hud-statusbar">
+      <div class="status-cell"><span>UPTIME:</span> <strong id="footUptime">00:00:00</strong></div>
+      <div class="status-cell"><span>CORE TEMP:</span> <strong id="footTemp">4,820 °C</strong></div>
+      <div class="status-cell"><span>OS:</span> <strong id="footOs">WINDOWS 64-BIT</strong></div>
+      <div class="status-cell grow"><span>DIRECTIVE:</span> <strong id="footDirective">ALL 10 NEURAL FEEDS SYNCHRONIZED // READY</strong></div>
+      <div class="status-cell"><span>SEC:</span> <strong class="highlight">ALPHA-01</strong></div>
+    </footer>
+
+  </div>
+
+  <!-- Asset Enlarge Modal -->
+  <div id="assetModal" class="hud-modal hidden">
+    <div class="modal-bg"></div>
+    <div class="modal-box">
+      <div class="modal-bar">
+        <h3 id="modalTitle">FEED INSPECTION</h3>
+        <button id="modalClose" class="modal-btn">✕ CLOSE</button>
+      </div>
+      <div class="modal-screen">
+        <video id="modalVid" autoplay loop muted playsinline></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOLOGRAPHIC TASK & WORKSPACE DASHBOARD -->
+  <div id="holographicWorkspace" class="holo-workspace-overlay hidden">
+    <div class="holo-grid-plane"></div>
+
+    <!-- Holographic Top Control Bar -->
+    <header class="holo-topbar">
+      <div class="holo-branding">
+        <span class="holo-badge">STARK LABS // HOLOGRAPHIC INTERFACE</span>
+        <h1 class="holo-title">ACTIVE WINDOWS & TASKS</h1>
+      </div>
+      <div class="holo-status">
+        <button id="closeHoloWorkspace" class="holo-exit-btn">✕ EXIT WORKSPACE</button>
+      </div>
+    </header>
+
+    <!-- Floating Recent File Hologram Cards Container -->
+    <div id="holoCardsDeck" class="holo-cards-stage">
+      <!-- Cards dynamically generated with active Windows applications -->
+    </div>
+
+    <!-- Bottom Instruction Bar -->
+    <footer class="holo-footer">
+      <div class="holo-hint">
+        <span>TASK MATRIX:</span>
+        <strong id="holoGestureStatus">ACTIVE WINDOWS // READY</strong>
+      </div>
+      <div class="holo-instructions">
+        <span>Click card to switch / dismiss task</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- HOLOGRAPHIC QR CODE SYNTHESIZER MODAL (FEATURE 49) -->
+  <div id="qrCodeModal" class="qr-code-overlay qr-hidden">
+    <div class="qr-modal-card">
+      <div class="qr-card-header">
+        <div class="qr-badge">STARK OPTICAL MATRIX // FEATURE 49</div>
+        <button id="closeQrCodeBtn" class="qr-close-btn" title="Close">✕</button>
+      </div>
+      <h2 class="qr-title">HOLOGRAPHIC QR SYNTHESIZER</h2>
+      
+      <!-- Input bar inside modal for manual generation -->
+      <div class="qr-input-row">
+        <input type="text" id="qrCustomInput" placeholder="Enter URL, Wi-Fi password, or text to encode..." />
+        <button id="qrGenerateBtn" class="qr-btn primary">SYNTHESIZE</button>
+      </div>
+
+      <div class="qr-target-readout">
+        <span class="qr-label">DATA ENCODED:</span>
+        <span id="qrEncodedText" class="qr-val">https://www.google.com</span>
+      </div>
+
+      <div class="qr-target-readout qr-saved-readout">
+        <span class="qr-label">SAVED LOCATION:</span>
+        <span id="qrSavedPath" class="qr-val qr-path-val">screenshots/...</span>
+      </div>
+
+      <!-- Holographic QR Display Frame -->
+      <div class="qr-frame-wrapper">
+        <div class="qr-corner top-left"></div>
+        <div class="qr-corner top-right"></div>
+        <div class="qr-corner bottom-left"></div>
+        <div class="qr-corner bottom-right"></div>
+        <div class="qr-scanline"></div>
+        <div class="qr-image-container">
+          <div id="qrLoadingSpinner" class="qr-loading-spinner">SYNTHESIZING MATRIX...</div>
+          <img id="qrDisplayImg" src="" alt="Holographic QR Matrix" style="display:none;" />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="qr-actions">
+        <button id="qrCopyBtn" class="qr-btn" title="Copy Content to Clipboard">📋 COPY LINK</button>
+        <button id="qrOpenFolderBtn" class="qr-btn" title="Open Screenshots Folder">📂 OPEN FOLDER</button>
+        <button id="qrDownloadBtn" class="qr-btn primary" title="Download QR Code Image">💾 DOWNLOAD PNG</button>
+        <button id="qrDismissBtn" class="qr-btn" title="Close QR Code">✕ DISMISS</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- J.A.R.V.I.S. STARK COCKPIT // FIRST-PERSON HELMET VISOR HUD OVERLAY       -->
+  <!-- ========================================================================= -->
+  <!-- ========================================================================= -->
+  <!-- J.A.R.V.I.S. STARK COCKPIT // FIRST-PERSON HELMET VISOR HUD (AUTHENTIC)   -->
+  <!-- ========================================================================= -->
+  <div id="starkCockpitHud" class="cockpit-hud-overlay hidden">
+    <!-- Live User Face Video Feed in Center (Cinematic Visor Tint) -->
+    <video id="cockpitLiveVideo" class="cockpit-webcam-feed" autoplay playsinline muted></video>
+
+    <!-- Dark Helmet Cockpit Vignette (Dims Room, Highlights User Face in Center) -->
+    <div class="cockpit-helmet-vignette"></div>
+    <div class="cockpit-helmet-frame"></div>
+    <div class="cockpit-scanlines"></div>
+
+    <!-- Fullscreen High-DPI Hologram Canvas (Renders all exact elements from tony-jarvis.png) -->
+    <canvas id="cockpitReticleCanvas" class="cockpit-reticle-canvas"></canvas>
+
+    <!-- Minimal HUD Controls Header -->
+    <div class="cockpit-hud-header">
+      <span class="cockpit-brand">STARK INDUSTRIES // MARK VII COCKPIT HUD</span>
+      <button id="closeCockpitBtn" class="cockpit-exit-btn" title="Disengage Helmet HUD">✕ DISENGAGE VISOR</button>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- J.A.R.V.I.S. // NEURAL VIDEO EDITING & PRODUCTION DASHBOARD               -->
+  <!-- ========================================================================= -->
+  <div id="videoEditingDashboard" class="video-editor-overlay hidden">
+    <div class="editor-backdrop"></div>
+    <div class="editor-container">
+      
+      <!-- Top Cybernetic Header Bar -->
+      <header class="editor-topbar">
+        <div class="editor-brand">
+          <span class="editor-badge">STARK INDUSTRIES // AUTONOMOUS MEDIA PROTOCOL</span>
+          <h2 class="editor-title" id="editorProjectTitle">PROJECT: IRON MAN <span class="editor-spec">[1080P/60FPS ● MULTI-TRACK]</span></h2>
+        </div>
+        <div class="editor-top-actions">
+          <button id="editorRenderBtn" class="editor-btn primary">⚡ COMPILE & RENDER</button>
+          <button id="editorOpenWindowsBtn" class="editor-btn">▶ LAUNCH IN WINDOWS</button>
+          <button id="closeVideoEditorBtn" class="editor-btn close-btn">✕ CLOSE</button>
+        </div>
+      </header>
+
+      <!-- Center Main Workspace: Split View -->
+      <div class="editor-workspace">
+        
+        <!-- Left / Center: Live Interactive Video Player Canvas -->
+        <div class="editor-player-column">
+          <div class="editor-screen-wrapper">
+            <canvas id="editorCanvas" width="1280" height="720"></canvas>
+            <video id="editorCompiledVideo" class="hidden" playsinline></video>
+            
+            <!-- Floating Cybernetic Overlay Reticles -->
+            <div class="editor-screen-reticle top-left"></div>
+            <div class="editor-screen-reticle top-right"></div>
+            <div class="editor-screen-reticle bottom-left"></div>
+            <div class="editor-screen-reticle bottom-right"></div>
+            
+            <!-- Live Status HUD Badge -->
+            <div class="editor-live-badge" id="editorLiveBadge">● LIVE PREVIEW</div>
+          </div>
+
+          <!-- Video Transport Bar -->
+          <div class="editor-transport">
+            <button id="editorPlayPauseBtn" class="transport-btn play-btn" title="Play/Pause">▶</button>
+            <button id="editorStopBtn" class="transport-btn" title="Restart">⏮</button>
+            <div class="transport-time" id="editorTimeDisplay">00:00 / 00:20</div>
+            <div class="transport-scrub-wrap">
+              <input type="range" id="editorScrubber" class="transport-slider" min="0" max="100" value="0" step="0.1" />
+            </div>
+            <button id="editorFullscreenBtn" class="transport-btn" title="Fullscreen">⛶</button>
+          </div>
+        </div>
+
+        <!-- Right Side: Media Bin & Clip Inspector -->
+        <div class="editor-sidebar-column">
+          <div class="sidebar-tabs">
+            <button class="tab-btn active" data-tab="clipsTab">MEDIA CLIPS (<span id="clipsCount">0</span>)</button>
+            <button class="tab-btn" data-tab="captionsTab">SUBTITLES</button>
+            <button class="tab-btn" data-tab="transitionsTab">TRANSITIONS</button>
+          </div>
+
+          <!-- Tab 1: Collected Clips Bin -->
+          <div id="clipsTab" class="tab-pane active">
+            <div class="bin-header">
+              <span>ONLINE MEDIA DOWNLOADED</span>
+              <small id="binStatusText">AUTO-COLLECTED VIA WIKIPEDIA / COMMONS</small>
+            </div>
+            <div id="editorClipsBin" class="clips-bin-list">
+              <!-- Dynamically populated clip cards -->
+            </div>
+          </div>
+
+          <!-- Tab 2: Subtitles / Captions -->
+          <div id="captionsTab" class="tab-pane">
+            <div class="bin-header">
+              <span>SYNCHRONIZED CAPTIONS</span>
+              <small>CLICK TO EDIT SUBTITLE TEXT</small>
+            </div>
+            <div id="editorSubtitlesList" class="subtitles-list">
+              <!-- Dynamically populated subtitle items -->
+            </div>
+          </div>
+
+          <!-- Tab 3: Transitions & Animations -->
+          <div id="transitionsTab" class="tab-pane">
+            <div class="bin-header">
+              <span>PROFESSIONAL ANIMATIONS</span>
+              <small>ACTIVE CINEMATIC PRESETS</small>
+            </div>
+            <div class="transitions-list">
+              <div class="trans-item active">
+                <span class="trans-name">Cross Dissolve</span>
+                <span class="trans-tag">BLEND (0.5s)</span>
+              </div>
+              <div class="trans-item active">
+                <span class="trans-name">Ken Burns Zoom</span>
+                <span class="trans-tag">PAN / MOTION</span>
+              </div>
+              <div class="trans-item active">
+                <span class="trans-name">Cybernetic HUD Glitch</span>
+                <span class="trans-tag">TELEMETRY</span>
+              </div>
+              <div class="trans-item active">
+                <span class="trans-name">Cinematic Flash</span>
+                <span class="trans-tag">ENERGY CORE</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Multi-Track Timeline -->
+      <div class="editor-timeline">
+        <div class="timeline-header">
+          <span class="timeline-label">CYBERNETIC MULTI-TRACK TIMELINE</span>
+          <div class="timeline-ruler" id="timelineRuler">
+            <!-- Dynamic ruler marks -->
+          </div>
+        </div>
+
+        <div class="timeline-tracks-container">
+          <!-- Playhead Needle -->
+          <div id="timelinePlayhead" class="timeline-playhead"></div>
+
+          <!-- Track 1: Video / Clips -->
+          <div class="track-row">
+            <div class="track-info">
+              <span class="track-badge video-badge">V1</span>
+              <span class="track-name">CLIPS</span>
+            </div>
+            <div id="trackClipsTimeline" class="track-content track-clips">
+              <!-- Clip blocks with duration and transition connectors -->
+            </div>
+          </div>
+
+          <!-- Track 2: Subtitles / Captions -->
+          <div class="track-row">
+            <div class="track-info">
+              <span class="track-badge caption-badge">T1</span>
+              <span class="track-name">TEXT</span>
+            </div>
+            <div id="trackCaptionsTimeline" class="track-content track-captions">
+              <!-- Subtitle blocks -->
+            </div>
+          </div>
+
+          <!-- Track 3: Voiceover & Audio Track -->
+          <div class="track-row">
+            <div class="track-info">
+              <span class="track-badge audio-badge">A1</span>
+              <span class="track-name">VOICE/AUDIO</span>
+            </div>
+            <div id="trackAudioTimeline" class="track-content track-audio">
+              <div class="audio-waveform-visualizer" id="timelineAudioWave"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- TONY STARK AR HOLOGRAPHIC HAND-TRACKING WORKSPACE                         -->
+  <!-- ========================================================================= -->
+  <div id="arHoloWorkspace" class="ar-holo-overlay hidden">
+    <!-- Live User Camera Feed (Mirrored Background) -->
+    <video id="arHoloVideo" class="ar-webcam-feed" autoplay playsinline muted></video>
+    
+    <!-- AR Vignette & Ambient Glow -->
+    <div class="ar-vignette"></div>
+    <div class="ar-holo-glare"></div>
+
+    <!-- Reticle & Landmark Drawing Canvas -->
+    <canvas id="arHoloCanvas" class="ar-hud-canvas"></canvas>
+
+    <!-- Top Minimal Controls Bar -->
+    <div class="ar-topbar">
+      <div class="ar-branding">
+        <span class="ar-sub">STARK LABS // CYBERNETIC OPTICAL TELEMETRY</span>
+        <span class="ar-main">AR HOLOGRAPHIC WORKSPACE <small id="arHandCountBadge">SCANNING HANDS...</small></span>
+      </div>
+      <div class="ar-actions">
+        <button id="arToggleCameraBtn" class="ar-hud-btn" title="Toggle Camera (Hotkey: C)">📷 CAM [C]</button>
+        <button id="arToggleDebugBtn" class="ar-hud-btn" title="Toggle Skeleton Landmarks (Hotkey: D)">⚙️ SKELETON [D]</button>
+        <button id="arResetBtn" class="ar-hud-btn" title="Respawn Nodes & Cards (Hotkey: R)">🔄 RESPAWN [R]</button>
+        <button id="closeArHoloBtn" class="ar-hud-btn exit-btn" title="Disengage AR Workspace (Hotkey: ESC)">✕ EXIT [ESC]</button>
+      </div>
+    </div>
+
+    <!-- Active Gesture Detection Live HUD Banner -->
+    <div id="arActiveGestureBanner" class="ar-gesture-banner">
+      <span class="ar-gesture-icon">⚡</span>
+      <span id="arGestureText" class="ar-gesture-text">READY // PERFORM GESTURES (PINCH, REPULSOR PUSH, 2-HAND SCALE, POINT-TAP, "V" SIGN)</span>
+    </div>
+
+    <!-- LEFT HUD: J.A.R.V.I.S. Arc Reactor Ring & Orbiting Tree Nodes -->
+    <div id="arLeftContainer" class="ar-left-container">
+      <!-- Arc Reactor Ring -->
+      <div id="arReactorRing" class="ar-reactor-ring" title="Tap ring to expand/collapse orbs">
+        <div class="ar-ring-outer-glow"></div>
+        <div class="ar-ring-ticks"></div>
+        <div class="ar-ring-inner-circle">
+          <div class="ar-ring-label">J.A.R.V.I.S.</div>
+          <div class="ar-ring-status">ACTIVE</div>
+        </div>
+      </div>
+
+      <!-- Orbital Nodes Branch Tree -->
+      <div id="arOrbsTree" class="ar-orbs-tree">
+        <!-- Node 1: Guide -->
+        <div class="ar-orb-node active" id="arOrbGuide" data-target="guide" title="Tap to toggle Guide tree">
+          <div class="ar-orb-circle">
+            <span class="ar-orb-title">GUIDE</span>
+            <span class="ar-orb-meta">2 folders · 6 notes</span>
+          </div>
+          <svg class="ar-connector-line"><line x1="0" y1="50%" x2="100%" y2="50%" /></svg>
+        </div>
+
+        <!-- Node 2: Props -->
+        <div class="ar-orb-node active" id="arOrbProps" data-target="props" title="Tap to toggle Props tree">
+          <div class="ar-orb-circle">
+            <span class="ar-orb-title">PROPS</span>
+            <span class="ar-orb-meta">2 folders · 2 props</span>
+          </div>
+          <svg class="ar-connector-line"><line x1="0" y1="50%" x2="100%" y2="50%" /></svg>
+        </div>
+
+        <!-- Node 3: System Tasks -->
+        <div class="ar-orb-node" id="arOrbTasks" data-target="tasks" title="Tap to toggle Tasks tree">
+          <div class="ar-orb-circle">
+            <span class="ar-orb-title">TASKS</span>
+            <span class="ar-orb-meta" id="arTasksMeta">Windows apps</span>
+          </div>
+          <svg class="ar-connector-line"><line x1="0" y1="50%" x2="100%" y2="50%" /></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Perspective Hologram Cards Stage -->
+    <div id="arCardsStage" class="ar-cards-stage">
+      <!-- Card 1: Props (Matching reference photo) -->
+      <div class="ar-glass-card" id="arCardProps" data-card-id="props" style="left: 60%; top: 20%; transform: perspective(1200px) rotateY(-8deg) rotateX(4deg) scale(1);">
+        <div class="ar-card-glass-glow"></div>
+        <div class="ar-card-border"></div>
+        <div class="ar-card-pinch-handle" title="Pinch here in air to drag card">
+          <span class="ar-pinch-anchor-dot"></span>
+        </div>
+        <div class="ar-card-header">
+          <span class="ar-card-title">PROPS</span>
+          <div class="ar-card-controls">
+            <button class="ar-card-ctrl-btn ar-card-max-btn" title="Maximize Card (or spread 2 hands)">🗖</button>
+            <button class="ar-card-ctrl-btn ar-card-min-btn" title="Minimize Card (or bring 2 hands together)">🗕</button>
+            <button class="ar-card-ctrl-btn ar-card-close-btn" title="Close Card">✕</button>
+          </div>
+        </div>
+        <div class="ar-card-tree-body">
+          <div class="ar-tree-item branch" data-name="fx">
+            <span class="ar-tree-arrow">▶</span>
+            <span class="ar-tree-name">fx</span>
+          </div>
+          <div class="ar-tree-item branch" data-name="misc">
+            <span class="ar-tree-arrow">▶</span>
+            <span class="ar-tree-name">misc</span>
+          </div>
+        </div>
+        <div class="ar-card-footer">
+          <span class="ar-card-stat" id="arCardPropsStat">HOLD STILL = 3D ROTATE</span>
+          <span class="ar-card-scale-hint">2 HANDS = RESIZE</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Guide Notes -->
+      <div class="ar-glass-card" id="arCardGuide" data-card-id="guide" style="left: 36%; top: 38%; transform: perspective(1200px) rotateY(6deg) rotateX(-2deg) scale(1); display: none;">
+        <div class="ar-card-glass-glow"></div>
+        <div class="ar-card-border"></div>
+        <div class="ar-card-pinch-handle" title="Pinch here in air to drag card">
+          <span class="ar-pinch-anchor-dot"></span>
+        </div>
+        <div class="ar-card-header">
+          <span class="ar-card-title">GUIDE // STARK ARCHIVES</span>
+          <div class="ar-card-controls">
+            <button class="ar-card-ctrl-btn ar-card-max-btn" title="Maximize Card (or spread 2 hands)">🗖</button>
+            <button class="ar-card-ctrl-btn ar-card-min-btn" title="Minimize Card (or bring 2 hands together)">🗕</button>
+            <button class="ar-card-ctrl-btn ar-card-close-btn" title="Close Card">✕</button>
+          </div>
+        </div>
+        <div class="ar-card-tree-body" id="arGuideTree">
+          <div class="ar-tree-item leaf"><span>📄 mark_vii_schematic.ai</span></div>
+          <div class="ar-tree-item leaf"><span>📄 arc_reactor_telemetry.log</span></div>
+          <div class="ar-tree-item leaf"><span>📄 neural_sync_protocol.doc</span></div>
+        </div>
+        <div class="ar-card-footer">
+          <span class="ar-card-stat">STARK PROTOCOLS</span>
+          <span class="ar-card-scale-hint">2 HANDS = RESIZE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hand Pinch Reticle Point (Illuminated neon green dot tracking pinch) -->
+    <div id="arPinchReticle" class="ar-pinch-reticle hidden">
+      <div class="ar-reticle-dot"></div>
+      <div class="ar-reticle-pulse"></div>
+      <span class="ar-reticle-tag">PINCH LOCK</span>
+    </div>
+
+    <!-- Bottom Stark Instructions Legend Bar (Exact string from the photo) -->
+    <footer class="ar-bottom-telemetry">
+      <div class="ar-legend-text">
+        tap the RING = orbs · tap an orb = its tree · TAP a card = open · pinch-drag = move · hold still ~1s = 3D rotate · two hands = scale · TAP an open item = close · CLAP (palms together, fingers up) = ring center-stage · CLAW: flash open, claw, aim, hold the strain 2s, SNAP = force pull · empty pinch dragged sideways = explode scrub · R respawn / C camera / D debug
+      </div>
+    </footer>
+  </div>
+
+  <script src="vendor/camera_utils.js"></script>
+  <script src="vendor/hands.js"></script>
+  <script src="vendor/face_mesh.js"></script>
+  <script src="app.js?v=4.3.0"></script>
+</body>
+</html>

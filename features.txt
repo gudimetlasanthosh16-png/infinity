@@ -1,0 +1,159 @@
+================================================================================
+   J.A.R.V.I.S. // TOP 10 HAND GESTURE CONTROL CAPABILITIES
+   Stark Industries Cybernetic Optical Telemetry & Computer Vision
+================================================================================
+
+[Instructions]: Put an 'X' inside the brackets [X] for any gesture you want implemented.
+When you are ready, say "Proceed" or tell J.A.R.V.I.S. which gestures to build!
+
+--------------------------------------------------------------------------------
+01. Repulsor Blast Palm Push (Master Mute & Emergency Freeze)
+--------------------------------------------------------------------------------
+[ ] GESTURE 01: REPULSOR PALM FREEZE
+    - Physical Gesture:
+        Open palm pushed flat forward towards the webcam (classic Iron Man repulsor pose),
+        fingers spread wide and held steady for 1 second.
+    - System Action:
+        Instantly mutes all Windows audio, pauses running media (YouTube/Spotify),
+        and halts active J.A.R.V.I.S. vocal speech synthesis.
+    - HUD Visual & Audio Feedback:
+        An expanding cyan repulsor energy ring radiates outward from the screen center,
+        accompanied by a futuristic Stark laser charge-down audio chime.
+    - Tony Stark Sci-Fi Experience:
+        Gives you immediate, silent command over your workstation when phone calls ring
+        or someone enters the room without touching keyboard or mouse.
+
+--------------------------------------------------------------------------------
+02. Holographic Pinch & Stretch (Zoom & HUD Scaling)
+--------------------------------------------------------------------------------
+[ ] GESTURE 02: HOLOGRAPHIC PINCH & ZOOM
+    - Physical Gesture:
+        Touch thumb and index finger together (pinch), then spread them apart in mid-air
+        to zoom in, or draw them closer to zoom out.
+    - System Action:
+        Smoothly adjusts zoom levels on active browser tabs, PDFs, images, or scales
+        the entire J.A.R.V.I.S. holographic HUD interface.
+    - HUD Visual & Audio Feedback:
+        A 3D wireframe bounding box locks onto the gesture anchor point with dynamic
+        magnification telemetry displayed in real time (e.g., "MAG: 150% // LENS EXPAND").
+    - Tony Stark Sci-Fi Experience:
+        Recreates Tony Stark's iconic workshop gesture when analyzing holographic suit blueprints.
+
+--------------------------------------------------------------------------------
+03. Cybernetic Rotary Dial (Fluid Volume & Brightness Wheel)
+--------------------------------------------------------------------------------
+[ ] GESTURE 03: ROTARY DIAL GESTURE
+    - Physical Gesture:
+        Form an "OK" circle or pinch grip with thumb and index finger, then rotate your
+        wrist clockwise or counter-clockwise in mid-air.
+    - System Action:
+        Clockwise rotation smoothly raises master audio volume (or screen brightness);
+        counter-clockwise rotation lowers it in precision increments (2% per tick).
+    - HUD Visual & Audio Feedback:
+        A circular neon rotary dial appears over your hand on the HUD with moving tick marks,
+        percentage readouts ("VOL: 74%"), and soft cybernetic clicking sound effects.
+    - Tony Stark Sci-Fi Experience:
+        Intuitive, tactile volume control without searching for keyboard media keys.
+
+--------------------------------------------------------------------------------
+04. Aerodynamic Swipe Flick (Window Switch & Desktop Clear)
+--------------------------------------------------------------------------------
+[ ] GESTURE 04: HORIZONTAL / VERTICAL SWIPE FLICK
+    - Physical Gesture:
+        Swift horizontal swipe with open hand (left-to-right or right-to-left).
+        Fast downward swipe flick toward desk surface.
+    - System Action:
+        Left/Right swipe cycles through open application windows (Alt+Tab) or virtual desktops.
+        Downward flick triggers "Show Desktop" (minimizes all clutter instantly).
+    - HUD Visual & Audio Feedback:
+        Particle trail follows the direction of the swipe with a subtle aerodynamic "whoosh" sound
+        and slide transitions on HUD tiles.
+    - Tony Stark Sci-Fi Experience:
+        Effortless window tossing across screens just like discarding holographic schematics.
+
+--------------------------------------------------------------------------------
+05. Clenched Fist Graviton Pull (Stealth Lock & Workstation Security)
+--------------------------------------------------------------------------------
+[ ] GESTURE 05: FIST CLENCH DEFENSE LOCK
+    - Physical Gesture:
+        Open hand facing the camera is rapidly clenched into a tight closed fist.
+    - System Action:
+        Locks the Windows workstation (Win+L) and dims screen to power-saving stealth mode
+        when you step away from the desk.
+    - HUD Visual & Audio Feedback:
+        Reactor core flashes crimson red, HUD displays "SECURITY PROTOCOL ENGAGED // LOCKING",
+        and plays the Iron Man armor lockdown sound.
+    - Tony Stark Sci-Fi Experience:
+        Walk away from your desk with total confidence knowing a single fist gesture secures your PC.
+
+--------------------------------------------------------------------------------
+06. Index Finger Laser Air-Mouse (Hands-Free Pointer & Tap Click)
+--------------------------------------------------------------------------------
+[ ] GESTURE 06: AIR-MOUSE LASER RETICLE
+    - Physical Gesture:
+        Extend index finger forward while curling other fingers inward (pointing gesture).
+        Move finger in 2D space to move cursor; tap forward in the air to execute a left-click.
+    - System Action:
+        Controls Windows mouse pointer movement and clicks without physical mouse or trackpad.
+    - HUD Visual & Audio Feedback:
+        A sleek cyan holographic crosshair reticle tracks the fingertip with sub-millimeter
+        smoothing, displaying real-time (X, Y) coordinate telemetry.
+    - Tony Stark Sci-Fi Experience:
+        Touchless interaction with maps, web pages, and HUD buttons from across the desk.
+
+--------------------------------------------------------------------------------
+07. Double Peace / "V" Sign Snapshot (Instant Screen Capture)
+--------------------------------------------------------------------------------
+[ ] GESTURE 07: "V" SIGN CAMERA SNAPSHOT
+    - Physical Gesture:
+        Hold index and middle fingers in a clear "V" / Victory sign for 1.5 seconds.
+    - System Action:
+        Instantly captures full-screen screenshot, saves it to the /screenshots folder,
+        and copies the captured image to your Windows clipboard.
+    - HUD Visual & Audio Feedback:
+        Camera shutter animation flashes across the screen edge with a mechanical shutter audio
+        sample and preview thumbnail pop-up in the corner.
+    - Tony Stark Sci-Fi Experience:
+        Instant hands-free snapshot capturing while presenting or working without fumbling for PrtScn.
+
+--------------------------------------------------------------------------------
+08. Horizontal Wave Scrub (Media Playback Track Skip & Rewind)
+--------------------------------------------------------------------------------
+[ ] GESTURE 08: WAVE TRACK CONTROLLER
+    - Physical Gesture:
+        Open palm waved side-to-side (wave to the right for next track, wave to the left for previous).
+    - System Action:
+        Sends media key commands to skip to next song/video or replay current track on Spotify,
+        YouTube, or Windows Media Player.
+    - HUD Visual & Audio Feedback:
+        Floating forward/rewind holographic track indicators (">>|" and "|<<") animate with audio confirmation.
+    - Tony Stark Sci-Fi Experience:
+        Seamless music DJing while coding, gaming, or working without switching active windows.
+
+--------------------------------------------------------------------------------
+09. Dual-Hand Split Expansion (Multitasking Snap Layout)
+--------------------------------------------------------------------------------
+[ ] GESTURE 09: DUAL-PALM MULTITASKING SPLIT
+    - Physical Gesture:
+        Both hands brought together in center view, then pushed outward simultaneously to left and right.
+    - System Action:
+        Snaps current active window into an organized 50/50 dual-pane side-by-side productivity layout.
+    - HUD Visual & Audio Feedback:
+        Cyan grid alignment dividing lines expand across screen center with a metallic sliding lock sound.
+    - Tony Stark Sci-Fi Experience:
+        Instantly organizes your workspace for reference reading and coding side-by-side.
+
+--------------------------------------------------------------------------------
+10. Thumbs Up / Down Decision Protocol (Quick Non-Verbal Confirmation)
+--------------------------------------------------------------------------------
+[ ] GESTURE 10: THUMBS UP / DOWN SYSTEM PROTOCOL
+    - Physical Gesture:
+        Hold a clear Thumbs-Up (Approval) or Thumbs-Down (Denial/Cancel) in front of the lens.
+    - System Action:
+        Answers binary confirmation dialogues prompted by J.A.R.V.I.S.
+        (e.g., "Empty Recycle Bin?", "Close All Tabs?", "Send Report?") without needing to speak.
+    - HUD Visual & Audio Feedback:
+        Displays a holographic green checkmark ring or crimson cross with instant voice acknowledgement.
+    - Tony Stark Sci-Fi Experience:
+        Fast, quiet executive command approval when speaking aloud is inconvenient.
+================================================================================
